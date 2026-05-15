@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generate Musik AI Pro</title>
-
+<title>Generat Musik Ai Pro</title>
 <style>
 :root{
 --bg:#0f172a;
@@ -14,32 +13,23 @@
 --primary2:#60a5fa;
 --text:#fff;
 }
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{
 background:var(--bg);
 color:var(--text);
 padding-bottom:100px;
+transition:.4s;
 }
-
 .header{
 padding:30px 20px 80px;
 background:linear-gradient(135deg,var(--primary),var(--primary2));
 border-bottom-left-radius:35px;
 border-bottom-right-radius:35px;
 }
-
 .content{
 padding:20px;
 margin-top:-40px;
 }
-
 .card{
 background:var(--card);
 padding:20px;
@@ -47,18 +37,15 @@ border-radius:25px;
 margin-bottom:20px;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
-
 .title{
-font-size:24px;
+font-size:25px;
 font-weight:bold;
 margin-bottom:15px;
 color:var(--primary2);
 }
-
 .label{
 margin:15px 0 8px;
 }
-
 input,textarea,select{
 width:100%;
 padding:15px;
@@ -68,18 +55,15 @@ border-radius:15px;
 background:var(--input);
 color:white;
 }
-
 textarea{
 resize:none;
-min-height:100px;
+min-height:120px;
 }
-
 button{
 border:none;
 cursor:pointer;
 font-weight:bold;
 }
-
 .generate,.save-btn,.credit-btn,.toggle-btn{
 width:100%;
 padding:15px;
@@ -88,70 +72,39 @@ margin-top:10px;
 background:linear-gradient(135deg,var(--primary),var(--primary2));
 color:white;
 }
-
 .row{
 display:flex;
 gap:10px;
 }
-
-.gender-btn,.theme-btn,.tab-btn{
+.gender-btn,.theme-btn{
 flex:1;
 padding:14px;
 border-radius:15px;
 background:var(--input);
 color:white;
 }
-
-.active{
+.gender-btn.active{
 background:var(--primary);
 }
-
 .credit-box{
 background:var(--input);
 padding:15px;
 border-radius:15px;
 margin-top:15px;
 }
-
+.key-text{
+margin-top:10px;
+word-break:break-all;
+font-size:13px;
+}
 .hidden{
 display:none;
 }
-
-.song-card{
-background:#020617;
-padding:15px;
-border-radius:20px;
-margin-top:15px;
+.theme-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 }
-
-.song-card img{
-width:100%;
-border-radius:15px;
-margin-bottom:10px;
-}
-
-.download{
-display:block;
-text-align:center;
-background:var(--primary);
-padding:12px;
-border-radius:12px;
-color:white;
-text-decoration:none;
-margin-top:10px;
-}
-
-audio{
-width:100%;
-margin-top:10px;
-}
-
-.loading{
-margin-top:15px;
-font-weight:bold;
-color:var(--primary2);
-}
-
 .nav{
 position:fixed;
 bottom:0;
@@ -162,25 +115,47 @@ display:flex;
 justify-content:space-around;
 padding:15px 0;
 }
-
 .nav-item{
 text-align:center;
 cursor:pointer;
 }
-
-.theme-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+.loading{
+margin-top:15px;
+font-weight:bold;
+color:var(--primary2);
+}
+.song-card{
+background:#020617;
+padding:15px;
+border-radius:20px;
+margin-top:15px;
+}
+.song-card img{
+width:100%;
+border-radius:15px;
+margin-bottom:10px;
+}
+.download{
+display:block;
+text-align:center;
+background:var(--primary);
+padding:12px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+margin-top:10px;
+}
+audio{
+width:100%;
+margin-top:10px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="header">
-<h1>ðŸŽµ Generate Musik AI Pro</h1>
-<p>SunoAPI + Catbox Upload</p>
+<h1>🎵 Generat Musik Ai Pro</h1>
+<p>SunoAPI Music Generator</p>
 </div>
 
 <div class="content">
@@ -188,18 +163,16 @@ gap:10px;
 <div id="homePage">
 
 <div class="card">
-<div class="title">Welcome ðŸ‘‹</div>
-
+<div class="title">Welcome 👋</div>
 <p>
-âœ… Generate Manual<br>
-âœ… Generate Cover AI<br>
-âœ… Upload Lagu Catbox<br>
-âœ… Play Audio<br>
-âœ… Download MP3<br>
-âœ… Check Credits<br>
-âœ… Theme Support
+✅ Generate Music<br>
+✅ Play Audio<br>
+✅ Download MP3<br>
+✅ Check Credits<br>
+✅ Delete Key<br>
+✅ 10 Themes<br>
+✅ Auto Loading Status
 </p>
-
 </div>
 
 </div>
@@ -208,25 +181,7 @@ gap:10px;
 
 <div class="card">
 
-<div class="row" style="margin-bottom:15px;">
-
-<button class="tab-btn active"
-id="manualTab"
-onclick="switchTab('manual')">
-Generate Manual
-</button>
-
-<button class="tab-btn"
-id="coverTab"
-onclick="switchTab('cover')">
-Generate Cover
-</button>
-
-</div>
-
-<div id="manualGenerate">
-
-<div class="title">Generate Manual</div>
+<div class="title">Generate Music</div>
 
 <div class="label">Judul Lagu</div>
 <input type="text" id="title">
@@ -268,58 +223,8 @@ onclick="generateMusic()">
 GENERATE MUSIC
 </button>
 
-</div>
-
-<div id="coverGenerate" class="hidden">
-
-<div class="title">Generate Cover</div>
-
-<div class="label">Judul</div>
-<input type="text" id="coverTitle">
-
-<div class="label">Style</div>
-<textarea id="coverStyle"></textarea>
-
-<div class="label">Lyrics</div>
-<textarea id="coverLyrics"></textarea>
-
-<div class="label">Vocal</div>
-
-<div class="row">
-
-<button class="gender-btn"
-id="coverMaleBtn"
-onclick="setCoverGender('m')">
-Male
-</button>
-
-<button class="gender-btn active"
-id="coverFemaleBtn"
-onclick="setCoverGender('f')">
-Female
-</button>
-
-</div>
-
-<div class="label">Model</div>
-
-<select id="coverModel">
-<option value="V5_5">V5.5</option>
-<option value="V5">V5</option>
-<option value="V4">V4</option>
-</select>
-
-<div class="label">Upload Lagu</div>
-<input type="file" id="coverAudio" accept="audio/*">
-
-<button class="generate"
-onclick="generateCover()">
-GENERATE COVER
-</button>
-
-</div>
-
-<div class="loading" id="loading"></div>
+<div class="loading"
+id="loading"></div>
 
 <div id="result"></div>
 
@@ -375,17 +280,17 @@ SAVE API KEYS
 
 <div class="nav-item"
 onclick="showPage('home')">
-ðŸ <br>Home
+🏠<br>Home
 </div>
 
 <div class="nav-item"
 onclick="showPage('generate')">
-ðŸŽµ<br>Generate
+🎵<br>Generate
 </div>
 
 <div class="nav-item"
 onclick="showPage('settings')">
-âš™ï¸<br>Settings
+⚙️<br>Settings
 </div>
 
 </div>
@@ -393,7 +298,6 @@ onclick="showPage('settings')">
 <script>
 
 let vocalGender = 'f';
-let coverGender = 'f';
 
 function setGender(type){
 
@@ -406,43 +310,6 @@ if(type === 'm'){
 maleBtn.classList.add('active');
 }else{
 femaleBtn.classList.add('active');
-}
-
-}
-
-function setCoverGender(type){
-
-coverGender = type;
-
-coverMaleBtn.classList.remove('active');
-coverFemaleBtn.classList.remove('active');
-
-if(type === 'm'){
-coverMaleBtn.classList.add('active');
-}else{
-coverFemaleBtn.classList.add('active');
-}
-
-}
-
-function switchTab(type){
-
-manualGenerate.classList.add('hidden');
-coverGenerate.classList.add('hidden');
-
-manualTab.classList.remove('active');
-coverTab.classList.remove('active');
-
-if(type === 'manual'){
-
-manualGenerate.classList.remove('hidden');
-manualTab.classList.add('active');
-
-}else{
-
-coverGenerate.classList.remove('hidden');
-coverTab.classList.add('active');
-
 }
 
 }
@@ -512,16 +379,28 @@ creditsBox.innerHTML += `
 
 <b>API KEY ${index+1}</b>
 
-<div style="margin-top:10px;">
+<div class="key-text"
+id="keyText${index}">
 ${hideKey(key)}
 </div>
 
-<button class="credit-btn"
-onclick="checkSingleCredit('${key}',${index})">
-ðŸ’³ Check Credits
+<button class="toggle-btn"
+onclick="toggleKey(${index})">
+👁 Show / Hide Key
 </button>
 
-<div id="creditResult${index}">
+<button class="credit-btn"
+onclick="checkSingleCredit('${key}',${index})">
+💳 Check Credits
+</button>
+
+<button class="toggle-btn"
+onclick="deleteKey(${index})">
+🗑 Delete Key
+</button>
+
+<div class="key-text"
+id="creditResult${index}">
 Credits Left : -
 </div>
 
@@ -530,6 +409,51 @@ Credits Left : -
 `;
 
 });
+
+}
+
+function toggleKey(index){
+
+const keys = JSON.parse(
+localStorage.getItem('gmusic_keys')
+) || [];
+
+const text =
+document.getElementById(
+'keyText'+index
+);
+
+if(text.dataset.show === '1'){
+
+text.innerHTML =
+hideKey(keys[index]);
+
+text.dataset.show = '0';
+
+}else{
+
+text.innerHTML = keys[index];
+
+text.dataset.show = '1';
+
+}
+
+}
+
+function deleteKey(index){
+
+const keys = JSON.parse(
+localStorage.getItem('gmusic_keys')
+) || [];
+
+keys.splice(index,1);
+
+localStorage.setItem(
+'gmusic_keys',
+JSON.stringify(keys)
+);
+
+renderKeys();
 
 }
 
@@ -579,34 +503,6 @@ result.innerHTML =
 
 }
 
-async function uploadAudio(file){
-
-const formData = new FormData();
-
-formData.append(
-'reqtype',
-'fileupload'
-);
-
-formData.append(
-'fileToUpload',
-file
-);
-
-const response = await fetch(
-'https://catbox.moe/user/api.php',
-{
-method:'POST',
-body:formData
-}
-);
-
-const result = await response.text();
-
-return result;
-
-}
-
 async function generateMusic(){
 
 const keys = JSON.parse(
@@ -625,10 +521,23 @@ return;
 
 }
 
-loading.innerHTML =
-'Generating Music...';
+const songTitle =
+document.getElementById('title').value;
 
-result.innerHTML = '';
+const style =
+document.getElementById('style').value;
+
+const lyrics =
+document.getElementById('lyrics').value;
+
+const model =
+document.getElementById('model').value;
+
+document.getElementById('loading')
+.innerHTML = 'Generating Music...';
+
+document.getElementById('result')
+.innerHTML = '';
 
 try{
 
@@ -642,20 +551,22 @@ headers:{
 },
 body:JSON.stringify({
 
-title:title.value,
-style:style.value,
-prompt:lyrics.value,
+title:songTitle,
+style:style,
+prompt:lyrics,
 customMode:true,
 instrumental:false,
-model:model.value,
+model:model,
 vocalGender:vocalGender,
-callBackUrl:'https://example.com'
+callBackUrl:"https://example.com/callback"
 
 })
 }
 );
 
 const data = await response.json();
+
+console.log(data);
 
 if(data.code !== 200){
 
@@ -665,132 +576,21 @@ loading.innerHTML =
 return;
 
 }
+
+const taskId =
+data.data.taskId;
 
 loading.innerHTML =
 'Processing Music...';
 
-checkMusicResult(
-data.data.taskId,
-apiKey
-);
+checkMusicResult(taskId,apiKey);
 
 }catch(err){
+
+console.log(err);
 
 loading.innerHTML =
 'Server Error';
-
-}
-
-}
-
-async function generateCover(){
-
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
-
-const apiKey = keys[0];
-
-if(!apiKey){
-
-alert('Masukkan API Key');
-
-showPage('settings');
-
-return;
-
-}
-
-const file =
-document.getElementById('coverAudio').files[0];
-
-if(!file){
-
-alert('Upload lagu dulu');
-
-return;
-
-}
-
-if(file.size > 50 * 1024 * 1024){
-
-alert('Max 50MB');
-
-return;
-
-}
-
-loading.innerHTML =
-'Uploading Audio...';
-
-result.innerHTML = '';
-
-try{
-
-const uploadUrl =
-await uploadAudio(file);
-
-loading.innerHTML =
-'Generating Cover...';
-
-const response = await fetch(
-'https://api.sunoapi.org/api/v1/generate/upload-cover',
-{
-method:'POST',
-headers:{
-'Content-Type':'application/json',
-'Authorization':'Bearer ' + apiKey
-},
-body:JSON.stringify({
-
-uploadUrl:uploadUrl,
-customMode:true,
-instrumental:false,
-
-title:
-coverTitle.value,
-
-style:
-coverStyle.value,
-
-prompt:
-coverLyrics.value,
-
-model:
-coverModel.value,
-
-vocalGender:
-coverGender,
-
-callBackUrl:'https://example.com'
-
-})
-}
-);
-
-const data = await response.json();
-
-if(data.code !== 200){
-
-loading.innerHTML =
-'Failed : ' + data.msg;
-
-return;
-
-}
-
-loading.innerHTML =
-'Processing Cover...';
-
-checkMusicResult(
-data.data.taskId,
-apiKey
-);
-
-}catch(err){
-
-loading.innerHTML =
-'Error Generate Cover';
 
 }
 
@@ -829,6 +629,8 @@ headers:{
 
 const data = await response.json();
 
+console.log(data);
+
 if(
 data.code === 200 &&
 data.data &&
@@ -838,7 +640,7 @@ data.data.status === 'SUCCESS'
 clearInterval(interval);
 
 loading.innerHTML =
-'Music Complete âœ…';
+'Music Complete ✅';
 
 const songs =
 data.data.response.sunoData;
@@ -865,7 +667,7 @@ src="${song.audioUrl}">
 href="${song.audioUrl}"
 download>
 
-â¬‡ Download MP3
+⬇ Download MP3
 
 </a>
 
@@ -875,7 +677,8 @@ download>
 
 });
 
-result.innerHTML = html;
+document.getElementById('result')
+.innerHTML = html;
 
 }
 
