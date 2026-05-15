@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Generat Musik Ai Pro</title>
+<title>AI Studio Pro</title>
 
 <!-- ICON -->
+
 <link rel="icon"
 type="image/png"
 href="https://cdn-icons-png.flaticon.com/512/3659/3659899.png">
@@ -17,211 +20,532 @@ href="https://cdn-icons-png.flaticon.com/512/3659/3659899.png">
 
 <style>
 
+/* =========================
+ROOT
+========================= */
+
 :root{
+
 --bg:#0f172a;
 --card:#111827;
 --input:#1e293b;
 --primary:#3b82f6;
 --primary2:#60a5fa;
---text:#fff;
+--text:#ffffff;
+
 }
 
+/* =========================
+GLOBAL
+========================= */
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+
 }
 
 body{
+
 background:var(--bg);
 color:var(--text);
 padding-bottom:100px;
-transition:.4s;
+
+transition:.5s;
+
 }
 
+/* =========================
+HEADER
+========================= */
+
 .header{
-padding:30px 20px 80px;
+
+padding:30px 20px 90px;
+
 background:linear-gradient(
 135deg,
 var(--primary),
 var(--primary2)
 );
+
 border-bottom-left-radius:35px;
 border-bottom-right-radius:35px;
+
+transition:.5s;
+
 }
+
+.header h1{
+
+font-size:28px;
+
+text-shadow:
+0 0 10px rgba(255,255,255,.6);
+
+}
+
+.theme-btn{
+
+margin-top:15px;
+
+padding:13px 18px;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:bold;
+
+background:white;
+
+color:black;
+
+cursor:pointer;
+
+animation:pulse 2s infinite;
+
+transition:.4s;
+
+}
+
+.theme-btn:hover{
+
+transform:scale(1.05);
+
+}
+
+/* =========================
+CONTENT
+========================= */
 
 .content{
+
 padding:20px;
-margin-top:-40px;
+margin-top:-45px;
+
 }
+
+/* =========================
+CARD
+========================= */
 
 .card{
+
 background:var(--card);
+
 padding:20px;
+
 border-radius:25px;
+
 margin-bottom:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+box-shadow:
+0 0 25px rgba(0,0,0,.4);
+
+transition:.5s;
+
+animation:fadeIn .5s ease;
+
+backdrop-filter:blur(10px);
+
 }
+
+/* =========================
+TITLE
+========================= */
 
 .title{
+
 font-size:25px;
+
 font-weight:bold;
+
 margin-bottom:15px;
+
 color:var(--primary2);
+
+text-shadow:
+0 0 10px var(--primary2);
+
 }
 
+/* =========================
+FORM
+========================= */
+
 .label{
+
 margin:15px 0 8px;
+
 }
 
 input,
 textarea,
 select{
+
 width:100%;
+
 padding:15px;
+
 border:none;
+
 outline:none;
+
 border-radius:15px;
+
 background:var(--input);
+
 color:white;
+
+transition:.4s;
+
 }
 
 textarea{
+
 resize:none;
+
 min-height:120px;
+
 }
 
+/* =========================
+BUTTON
+========================= */
+
 button{
+
 border:none;
+
 cursor:pointer;
+
 font-weight:bold;
+
 }
 
 .generate,
 .save-btn,
 .credit-btn,
 .toggle-btn{
+
 width:100%;
+
 padding:15px;
+
 border-radius:15px;
-margin-top:10px;
+
+margin-top:12px;
+
 background:linear-gradient(
 135deg,
 var(--primary),
 var(--primary2)
 );
+
 color:white;
+
+transition:.4s;
+
+box-shadow:
+0 0 15px rgba(255,255,255,.2);
+
 }
 
+.generate:hover,
+.save-btn:hover,
+.credit-btn:hover,
+.toggle-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 0 25px var(--primary2);
+
+}
+
+/* =========================
+ROW
+========================= */
+
 .row{
+
 display:flex;
 gap:10px;
+
 }
 
 .gender-btn{
+
 flex:1;
+
 padding:14px;
+
 border-radius:15px;
+
 background:var(--input);
+
 color:white;
+
+transition:.4s;
+
 }
 
 .gender-btn.active{
+
 background:var(--primary);
+
 }
 
-.credit-box{
-background:var(--input);
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-}
-
-.key-text{
-margin-top:10px;
-word-break:break-all;
-font-size:13px;
-}
-
-.hidden{
-display:none;
-}
+/* =========================
+NAV
+========================= */
 
 .nav{
+
 position:fixed;
+
 bottom:0;
 left:0;
+
 width:100%;
+
 background:var(--card);
+
 display:flex;
+
 justify-content:space-around;
+
 padding:15px 0;
+
+transition:.5s;
+
 }
 
 .nav-item{
+
 text-align:center;
+
 cursor:pointer;
+
 font-size:13px;
+
 display:flex;
+
 flex-direction:column;
+
 align-items:center;
-justify-content:center;
+
 gap:4px;
+
 }
 
 .nav-icon{
+
 font-size:22px;
+
+transition:.4s;
+
 }
+
+.nav-item:hover .nav-icon{
+
+transform:scale(1.2);
+
+}
+
+/* =========================
+LOADING
+========================= */
 
 .loading{
+
 margin-top:15px;
+
 font-weight:bold;
+
 color:var(--primary2);
+
+animation:pulse 1.5s infinite;
+
 }
 
+/* =========================
+SONG CARD
+========================= */
+
 .song-card{
+
 background:#020617;
+
 padding:15px;
+
 border-radius:20px;
+
 margin-top:15px;
+
+animation:fadeIn .5s ease;
+
 }
 
 .song-card img{
-width:100%;
-border-radius:15px;
-margin-bottom:10px;
-}
 
-.download{
-display:block;
-text-align:center;
-background:var(--primary);
-padding:12px;
-border-radius:12px;
-color:white;
-text-decoration:none;
-margin-top:10px;
+width:100%;
+
+border-radius:15px;
+
+margin-bottom:10px;
+
 }
 
 audio{
+
 width:100%;
+
 margin-top:10px;
+
+filter:drop-shadow(
+0 0 8px var(--primary2)
+);
+
+}
+
+.download{
+
+display:block;
+
+text-align:center;
+
+background:var(--primary);
+
+padding:12px;
+
+border-radius:12px;
+
+color:white;
+
+text-decoration:none;
+
+margin-top:10px;
+
+}
+
+/* =========================
+KEY BOX
+========================= */
+
+.credit-box{
+
+background:var(--input);
+
+padding:15px;
+
+border-radius:15px;
+
+margin-top:15px;
+
+}
+
+.key-text{
+
+margin-top:10px;
+
+font-size:13px;
+
+word-break:break-all;
+
+}
+
+/* =========================
+UTIL
+========================= */
+
+.hidden{
+
+display:none;
+
+}
+
+/* =========================
+ANIMATION
+========================= */
+
+@keyframes pulse{
+
+0%{
+
+box-shadow:
+0 0 0 rgba(255,255,255,.3);
+
+}
+
+50%{
+
+box-shadow:
+0 0 25px rgba(255,255,255,.8);
+
+}
+
+100%{
+
+box-shadow:
+0 0 0 rgba(255,255,255,.3);
+
+}
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
 }
 
 </style>
 </head>
 <body>
 
+<!-- =========================
+HEADER
+========================= -->
+
 <div class="header">
 
-<h1>🎵 Generat Musik Ai Pro</h1>
+<h1>
+🚀 AI Studio Pro
+</h1>
 
 <p>
-SunoAPI + APIFrame Music Generator
+SunoAPI + APIFrame Generator
 </p>
 
+<button class="theme-btn"
+onclick="nextTheme()">
+
+🎨 Change Theme
+
+</button>
+
 </div>
+
+<!-- =========================
+CONTENT
+========================= -->
 
 <div class="content">
 
@@ -237,14 +561,14 @@ Welcome 👋
 
 <p>
 
-✅ Generate Music<br>
-✅ SunoAPI Support<br>
-✅ APIFrame Support<br>
-✅ Play Audio<br>
-✅ Download MP3<br>
-✅ Check Credits Suno<br>
-✅ Delete API Key<br>
-✅ Beautiful UI
+🎵 Generate Music AI<br>
+🖼 APIFrame Support<br>
+🎨 10 Premium Themes<br>
+💳 Check Credits Suno<br>
+🗑 Delete API Key<br>
+✨ Neon Animation UI<br>
+🔥 Cyberpunk Effects<br>
+🚀 Modern AI Studio
 
 </p>
 
@@ -260,7 +584,7 @@ class="hidden">
 <div class="card">
 
 <div class="title">
-Generate Music
+🎵 Generate Music
 </div>
 
 <div class="label">
@@ -293,7 +617,7 @@ Style Musik
 <textarea id="style"></textarea>
 
 <div class="label">
-Lirik Lagu
+Lyrics
 </div>
 
 <textarea id="lyrics"></textarea>
@@ -345,7 +669,7 @@ V4
 <button class="generate"
 onclick="generateMusic()">
 
-GENERATE MUSIC
+🎵 GENERATE MUSIC
 
 </button>
 
@@ -366,7 +690,7 @@ class="hidden">
 <div class="card">
 
 <div class="title">
-API Settings
+⚙️ Settings
 </div>
 
 <div class="label">
@@ -374,21 +698,19 @@ API Settings
 </div>
 
 <textarea
-id="sunoKey"
-placeholder="Masukkan Suno API Key"></textarea>
+id="sunoKey"></textarea>
 
 <div class="label">
 🖼 APIFrame API Key
 </div>
 
 <textarea
-id="apiframeKey"
-placeholder="Masukkan APIFrame API Key"></textarea>
+id="apiframeKey"></textarea>
 
 <button class="save-btn"
 onclick="saveApiKeys()">
 
-SAVE API KEYS
+💾 SAVE API KEYS
 
 </button>
 
@@ -400,7 +722,9 @@ SAVE API KEYS
 
 </div>
 
-<!-- NAV -->
+<!-- =========================
+NAVIGATION
+========================= -->
 
 <div class="nav">
 
@@ -430,7 +754,15 @@ onclick="showPage('settings')">
 
 </div>
 
+<!-- =========================
+SCRIPT
+========================= -->
+
 <script>
+
+/* =========================
+VOICE
+========================= */
 
 let vocalGender = 'f';
 
@@ -442,12 +774,20 @@ maleBtn.classList.remove('active');
 femaleBtn.classList.remove('active');
 
 if(type === 'm'){
+
 maleBtn.classList.add('active');
+
 }else{
+
 femaleBtn.classList.add('active');
+
 }
 
 }
+
+/* =========================
+PAGE
+========================= */
 
 function showPage(page){
 
@@ -456,28 +796,43 @@ generatePage.classList.add('hidden');
 settingsPage.classList.add('hidden');
 
 if(page === 'home'){
+
 homePage.classList.remove('hidden');
+
 }
 
 if(page === 'generate'){
+
 generatePage.classList.remove('hidden');
+
 }
 
 if(page === 'settings'){
+
 settingsPage.classList.remove('hidden');
+
 }
 
 }
+
+/* =========================
+HIDE KEY
+========================= */
 
 function hideKey(key){
 
-if(!key) return 'Belum Ada Key';
+if(!key)
+return 'Belum Ada Key';
 
 return key.substring(0,4)
 + '********'
 + key.substring(key.length-4);
 
 }
+
+/* =========================
+SAVE KEY
+========================= */
 
 function saveApiKeys(){
 
@@ -503,6 +858,10 @@ renderKeys();
 
 }
 
+/* =========================
+DELETE
+========================= */
+
 function deleteSunoKey(){
 
 localStorage.removeItem(
@@ -523,28 +882,42 @@ renderKeys();
 
 }
 
+/* =========================
+RENDER
+========================= */
+
 function renderKeys(){
 
 const sunoKey =
-localStorage.getItem('suno_key') || '';
+localStorage.getItem(
+'suno_key'
+) || '';
 
 const apiframeKey =
-localStorage.getItem('apiframe_key') || '';
+localStorage.getItem(
+'apiframe_key'
+) || '';
 
-document.getElementById('sunoKey').value =
-sunoKey;
+document.getElementById(
+'sunoKey'
+).value = sunoKey;
 
-document.getElementById('apiframeKey').value =
-apiframeKey;
+document.getElementById(
+'apiframeKey'
+).value = apiframeKey;
 
 creditsBox.innerHTML = `
 
 <div class="credit-box">
 
-<b>🎵 SUNO API KEY</b>
+<b>
+🎵 SUNO API
+</b>
 
 <div class="key-text">
+
 ${hideKey(sunoKey)}
+
 </div>
 
 <button class="credit-btn"
@@ -572,10 +945,14 @@ Credits Left : -
 
 <div class="credit-box">
 
-<b>🖼 APIFRAME API KEY</b>
+<b>
+🖼 APIFRAME API
+</b>
 
 <div class="key-text">
+
 ${hideKey(apiframeKey)}
+
 </div>
 
 <button class="toggle-btn"
@@ -590,6 +967,10 @@ onclick="deleteApiFrameKey()">
 `;
 
 }
+
+/* =========================
+CHECK CREDIT
+========================= */
 
 async function checkSingleCredit(key){
 
@@ -637,22 +1018,32 @@ result.innerHTML =
 
 }
 
+/* =========================
+GENERATE MUSIC
+========================= */
+
 async function generateMusic(){
 
 const provider =
-document.getElementById('provider').value;
+document.getElementById(
+'provider'
+).value;
 
 let apiKey = '';
 
 if(provider === 'suno'){
 
 apiKey =
-localStorage.getItem('suno_key');
+localStorage.getItem(
+'suno_key'
+);
 
 }else{
 
 apiKey =
-localStorage.getItem('apiframe_key');
+localStorage.getItem(
+'apiframe_key'
+);
 
 }
 
@@ -667,16 +1058,24 @@ return;
 }
 
 const songTitle =
-document.getElementById('title').value;
+document.getElementById(
+'title'
+).value;
 
 const style =
-document.getElementById('style').value;
+document.getElementById(
+'style'
+).value;
 
 const lyrics =
-document.getElementById('lyrics').value;
+document.getElementById(
+'lyrics'
+).value;
 
 const model =
-document.getElementById('model').value;
+document.getElementById(
+'model'
+).value;
 
 loading.innerHTML =
 'Generating Music...';
@@ -684,6 +1083,10 @@ loading.innerHTML =
 result.innerHTML = '';
 
 try{
+
+/* =========================
+SUNO
+========================= */
 
 if(provider === 'suno'){
 
@@ -693,23 +1096,29 @@ const response = await fetch(
 method:'POST',
 headers:{
 'Content-Type':'application/json',
-'Authorization':'Bearer ' + apiKey
+'Authorization':
+'Bearer ' + apiKey
 },
 body:JSON.stringify({
 
 title:songTitle,
 style:style,
 prompt:lyrics,
+
 customMode:true,
+
 instrumental:false,
+
 model:model,
+
 vocalGender:vocalGender
 
 })
 }
 );
 
-const data = await response.json();
+const data =
+await response.json();
 
 if(data.code !== 200){
 
@@ -726,7 +1135,14 @@ data.data.taskId;
 loading.innerHTML =
 'Processing Music...';
 
-checkMusicResult(taskId,apiKey);
+checkMusicResult(
+taskId,
+apiKey
+);
+
+/* =========================
+APIFRAME
+========================= */
 
 }else{
 
@@ -736,19 +1152,23 @@ const response = await fetch(
 method:'POST',
 headers:{
 'Content-Type':'application/json',
-'X-API-Key': apiKey
+'X-API-Key':apiKey
 },
 body:JSON.stringify({
 
 model:'suno',
-prompt:lyrics || style,
+
+prompt:
+lyrics || style,
+
 title:songTitle
 
 })
 }
 );
 
-const data = await response.json();
+const data =
+await response.json();
 
 loading.innerHTML =
 'APIFrame Music Submitted ✅';
@@ -758,7 +1178,7 @@ result.innerHTML = `
 <div class="song-card">
 
 <h3>
-🎵 APIFrame Request Sent
+🎵 APIFrame Request
 </h3>
 
 <p>
@@ -787,7 +1207,14 @@ loading.innerHTML =
 
 }
 
-async function checkMusicResult(taskId,apiKey){
+/* =========================
+POLL RESULT
+========================= */
+
+async function checkMusicResult(
+taskId,
+apiKey
+){
 
 let tryCount = 0;
 
@@ -810,14 +1237,18 @@ return;
 try{
 
 const response = await fetch(
+
 'https://api.sunoapi.org/api/v1/generate/record-info?taskId='
 + taskId,
+
 {
 method:'GET',
 headers:{
-'Authorization':'Bearer ' + apiKey
+'Authorization':
+'Bearer ' + apiKey
 }
 }
+
 );
 
 const data =
@@ -847,9 +1278,13 @@ html += `
 
 <img src="${song.imageUrl}">
 
-<h3>${song.title}</h3>
+<h3>
+${song.title}
+</h3>
 
-<p>${song.tags || ''}</p>
+<p>
+${song.tags || ''}
+</p>
 
 <audio controls
 src="${song.audioUrl}">
@@ -882,6 +1317,183 @@ console.log(err);
 },5000);
 
 }
+
+/* =========================
+10 THEMES
+========================= */
+
+const themes = [
+
+{
+bg:'#0f172a',
+card:'#111827',
+input:'#1e293b',
+primary:'#3b82f6',
+primary2:'#60a5fa'
+},
+
+{
+bg:'#1a032b',
+card:'#2d0b45',
+input:'#3d145c',
+primary:'#c026d3',
+primary2:'#e879f9'
+},
+
+{
+bg:'#220000',
+card:'#3b0a0a',
+input:'#4d1111',
+primary:'#ef4444',
+primary2:'#f87171'
+},
+
+{
+bg:'#001a00',
+card:'#002b00',
+input:'#003d00',
+primary:'#22c55e',
+primary2:'#4ade80'
+},
+
+{
+bg:'#120018',
+card:'#220033',
+input:'#33004d',
+primary:'#ff00ff',
+primary2:'#00ffff'
+},
+
+{
+bg:'#331a00',
+card:'#4d2600',
+input:'#663300',
+primary:'#f97316',
+primary2:'#fb923c'
+},
+
+{
+bg:'#2b0018',
+card:'#450028',
+input:'#5c0036',
+primary:'#ec4899',
+primary2:'#f9a8d4'
+},
+
+{
+bg:'#001f2b',
+card:'#00384d',
+input:'#004d66',
+primary:'#06b6d4',
+primary2:'#67e8f9'
+},
+
+{
+bg:'#1f1a00',
+card:'#332b00',
+input:'#4d4000',
+primary:'#eab308',
+primary2:'#fde047'
+},
+
+{
+bg:'#000000',
+card:'#0a0a0a',
+input:'#141414',
+primary:'#ffffff',
+primary2:'#888888'
+}
+
+];
+
+let currentTheme = 0;
+
+/* =========================
+NEXT THEME
+========================= */
+
+function nextTheme(){
+
+currentTheme++;
+
+if(currentTheme >= themes.length){
+
+currentTheme = 0;
+
+}
+
+applyTheme(
+themes[currentTheme]
+);
+
+}
+
+/* =========================
+APPLY
+========================= */
+
+function applyTheme(theme){
+
+document.documentElement
+.style.setProperty(
+'--bg',
+theme.bg
+);
+
+document.documentElement
+.style.setProperty(
+'--card',
+theme.card
+);
+
+document.documentElement
+.style.setProperty(
+'--input',
+theme.input
+);
+
+document.documentElement
+.style.setProperty(
+'--primary',
+theme.primary
+);
+
+document.documentElement
+.style.setProperty(
+'--primary2',
+theme.primary2
+);
+
+localStorage.setItem(
+'theme_index',
+currentTheme
+);
+
+}
+
+/* =========================
+LOAD THEME
+========================= */
+
+const savedTheme =
+localStorage.getItem(
+'theme_index'
+);
+
+if(savedTheme){
+
+currentTheme =
+parseInt(savedTheme);
+
+applyTheme(
+themes[currentTheme]
+);
+
+}
+
+/* =========================
+INIT
+========================= */
 
 renderKeys();
 
