@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generat Musik Ai</title>
+
 <style>
 :root{
 --bg:#0f172a;
@@ -11,77 +12,128 @@
 --input:#1e293b;
 --primary:#3b82f6;
 --primary2:#60a5fa;
---text:#fff;
+--text:#ffffff;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
 background:var(--bg);
 color:var(--text);
 padding-bottom:100px;
 transition:.4s;
 }
+
 .header{
-padding:30px;
+padding:30px 20px 80px;
 background:linear-gradient(135deg,var(--primary),var(--primary2));
-border-bottom-left-radius:30px;
-border-bottom-right-radius:30px;
+border-bottom-left-radius:35px;
+border-bottom-right-radius:35px;
 }
-.content{padding:20px;}
+
+.content{
+padding:20px;
+margin-top:-40px;
+}
+
 .card{
 background:var(--card);
 padding:20px;
 border-radius:25px;
 margin-bottom:20px;
+box-shadow:0 10px 20px rgba(0,0,0,.3);
 }
+
 .title{
 font-size:25px;
 font-weight:bold;
 margin-bottom:15px;
 color:var(--primary2);
 }
-.label{margin:15px 0 8px;}
+
+.label{
+margin:15px 0 8px;
+}
+
 input,textarea,select{
 width:100%;
 padding:15px;
 border:none;
+outline:none;
 border-radius:15px;
 background:var(--input);
 color:white;
 }
-textarea{min-height:120px;resize:none;}
+
+textarea{
+min-height:120px;
+resize:none;
+}
+
 button{
 border:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+.generate,
+.save-btn,
+.credit-btn,
+.toggle-btn{
+width:100%;
 padding:15px;
 border-radius:15px;
-font-weight:bold;
-cursor:pointer;
-}
-.generate,.save-btn,.credit-btn,.toggle-btn{
-width:100%;
 margin-top:10px;
 background:linear-gradient(135deg,var(--primary),var(--primary2));
 color:white;
 }
-.row{display:flex;gap:10px;}
-.gender-btn,.theme-btn{
+
+.row{
+display:flex;
+gap:10px;
+}
+
+.gender-btn,
+.theme-btn{
 flex:1;
+padding:14px;
+border-radius:15px;
 background:var(--input);
 color:white;
 }
-.gender-btn.active,.theme-btn.active{
+
+.gender-btn.active{
 background:var(--primary);
 }
+
 .credit-box{
 background:var(--input);
 padding:15px;
 border-radius:15px;
 margin-top:15px;
 }
+
 .key-text{
 margin-top:10px;
 word-break:break-all;
+font-size:13px;
 }
-.hidden{display:none;}
+
+.hidden{
+display:none;
+}
+
+.theme-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
 .nav{
 position:fixed;
 bottom:0;
@@ -92,11 +144,35 @@ display:flex;
 justify-content:space-around;
 padding:15px 0;
 }
-.nav-item{text-align:center;cursor:pointer;}
-.theme-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+
+.nav-item{
+text-align:center;
+font-size:14px;
+cursor:pointer;
+}
+
+.loading{
+margin-top:15px;
+font-weight:bold;
+color:var(--primary2);
+}
+
+.song-card{
+background:#020617;
+padding:15px;
+border-radius:20px;
+margin-top:15px;
+}
+
+.download{
+display:block;
+text-align:center;
+background:var(--primary);
+padding:12px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+margin-top:10px;
 }
 </style>
 </head>
@@ -110,9 +186,12 @@ gap:10px;
 <div class="content">
 
 <div id="homePage">
+
 <div class="card">
 <div class="title">Welcome 👋</div>
+
 <p>
+✅ SunoAPI Support<br>
 ✅ V5.5 Support<br>
 ✅ Multi API Key<br>
 ✅ Check Credits<br>
@@ -120,13 +199,18 @@ gap:10px;
 ✅ 10 Themes<br>
 ✅ Mobile Friendly
 </p>
+
 </div>
+
 </div>
 
 <div id="generatePage" class="hidden">
+
 <div class="card">
 
-<div class="title">Generate Music</div>
+<div class="title">
+Generate Music
+</div>
 
 <div class="label">Judul Lagu</div>
 <input type="text" id="title">
@@ -137,27 +221,43 @@ gap:10px;
 <div class="label">Lirik Lagu</div>
 <textarea id="lyrics"></textarea>
 
-<div class="label">Vocal</div>
+<div class="label">Pilihan Vocal</div>
+
 <div class="row">
-<button class="gender-btn" id="maleBtn" onclick="setGender('m')">Male</button>
-<button class="gender-btn active" id="femaleBtn" onclick="setGender('f')">Female</button>
+
+<button class="gender-btn"
+id="maleBtn"
+onclick="setGender('m')">
+Male
+</button>
+
+<button class="gender-btn active"
+id="femaleBtn"
+onclick="setGender('f')">
+Female
+</button>
+
 </div>
 
-<div class="label">Model</div>
+<div class="label">Model AI</div>
+
 <select id="model">
 <option value="V5_5">V5.5</option>
 <option value="V5">V5</option>
 <option value="V4">V4</option>
 </select>
 
-<button class="generate" onclick="generateMusic()">
+<button class="generate"
+onclick="generateMusic()">
 GENERATE MUSIC
 </button>
 
-<div id="loading"></div>
+<div class="loading" id="loading"></div>
+
 <div id="result"></div>
 
 </div>
+
 </div>
 
 <div id="settingsPage" class="hidden">
@@ -166,9 +266,12 @@ GENERATE MUSIC
 
 <div class="title">API Settings</div>
 
-<textarea id="apikeys" placeholder="1 API key per baris"></textarea>
+<textarea
+id="apikeys"
+placeholder="1 API key per baris"></textarea>
 
-<button class="save-btn" onclick="saveApiKeys()">
+<button class="save-btn"
+onclick="saveApiKeys()">
 SAVE API KEYS
 </button>
 
@@ -181,6 +284,7 @@ SAVE API KEYS
 <div class="title">Theme Settings</div>
 
 <div class="theme-grid">
+
 <button class="theme-btn" onclick="setTheme(1)">Modern</button>
 <button class="theme-btn" onclick="setTheme(2)">Beach</button>
 <button class="theme-btn" onclick="setTheme(3)">Galaxy</button>
@@ -191,6 +295,7 @@ SAVE API KEYS
 <button class="theme-btn" onclick="setTheme(8)">Candy</button>
 <button class="theme-btn" onclick="setTheme(9)">Gold</button>
 <button class="theme-btn" onclick="setTheme(10)">Ocean</button>
+
 </div>
 
 </div>
@@ -200,9 +305,22 @@ SAVE API KEYS
 </div>
 
 <div class="nav">
-<div class="nav-item" onclick="showPage('home')">🏠<br>Home</div>
-<div class="nav-item" onclick="showPage('generate')">🎵<br>Generate</div>
-<div class="nav-item" onclick="showPage('settings')">⚙️<br>Settings</div>
+
+<div class="nav-item"
+onclick="showPage('home')">
+🏠<br>Home
+</div>
+
+<div class="nav-item"
+onclick="showPage('generate')">
+🎵<br>Generate
+</div>
+
+<div class="nav-item"
+onclick="showPage('settings')">
+⚙️<br>Settings
+</div>
+
 </div>
 
 <script>
@@ -213,46 +331,69 @@ function setGender(type){
 
 vocalGender = type;
 
-maleBtn.classList.remove('active');
-femaleBtn.classList.remove('active');
+document.getElementById('maleBtn')
+.classList.remove('active');
+
+document.getElementById('femaleBtn')
+.classList.remove('active');
 
 if(type === 'm'){
-maleBtn.classList.add('active');
+
+document.getElementById('maleBtn')
+.classList.add('active');
+
 }else{
-femaleBtn.classList.add('active');
+
+document.getElementById('femaleBtn')
+.classList.add('active');
+
 }
 
 }
 
 function showPage(page){
 
-homePage.classList.add('hidden');
-generatePage.classList.add('hidden');
-settingsPage.classList.add('hidden');
+document.getElementById('homePage')
+.classList.add('hidden');
+
+document.getElementById('generatePage')
+.classList.add('hidden');
+
+document.getElementById('settingsPage')
+.classList.add('hidden');
 
 if(page === 'home'){
-homePage.classList.remove('hidden');
+document.getElementById('homePage')
+.classList.remove('hidden');
 }
 
 if(page === 'generate'){
-generatePage.classList.remove('hidden');
+document.getElementById('generatePage')
+.classList.remove('hidden');
 }
 
 if(page === 'settings'){
-settingsPage.classList.remove('hidden');
+document.getElementById('settingsPage')
+.classList.remove('hidden');
 }
 
 }
 
 function hideKey(key){
-return key.substring(0,4) + '********' + key.substring(key.length-4);
+
+return key.substring(0,4)
++ '********'
++ key.substring(key.length-4);
+
 }
 
 function saveApiKeys(){
 
-const raw = document.getElementById('apikeys').value;
+const raw =
+document.getElementById('apikeys').value;
 
-const keys = raw.split('\n')
+const keys = raw
+.split('\n')
 .map(k => k.trim())
 .filter(k => k);
 
@@ -273,17 +414,21 @@ const keys = JSON.parse(
 localStorage.getItem('gmusic_keys')
 ) || [];
 
-creditsBox.innerHTML = '';
+const box =
+document.getElementById('creditsBox');
+
+box.innerHTML = '';
 
 keys.forEach((key,index)=>{
 
-creditsBox.innerHTML += `
+box.innerHTML += `
 
 <div class="credit-box">
 
 <b>API KEY ${index+1}</b>
 
-<div class="key-text" id="keyText${index}">
+<div class="key-text"
+id="keyText${index}">
 ${hideKey(key)}
 </div>
 
@@ -322,16 +467,21 @@ localStorage.getItem('gmusic_keys')
 ) || [];
 
 const text =
-document.getElementById('keyText'+index);
+document.getElementById(
+'keyText'+index
+);
 
 if(text.dataset.show === '1'){
 
-text.innerHTML = hideKey(keys[index]);
+text.innerHTML =
+hideKey(keys[index]);
+
 text.dataset.show = '0';
 
 }else{
 
 text.innerHTML = keys[index];
+
 text.dataset.show = '1';
 
 }
@@ -364,7 +514,8 @@ document.getElementById(
 'creditResult'+index
 );
 
-result.innerHTML = 'Checking Credits...';
+result.innerHTML =
+'Checking Credits...';
 
 try{
 
@@ -378,7 +529,8 @@ headers:{
 }
 );
 
-const data = await response.json();
+const data =
+await response.json();
 
 if(data.code === 200){
 
@@ -412,8 +564,13 @@ localStorage.getItem('gmusic_keys')
 const apiKey = keys[0];
 
 if(!apiKey){
+
 alert('Masukkan API Key');
+
+showPage('settings');
+
 return;
+
 }
 
 const songTitle =
@@ -428,8 +585,8 @@ document.getElementById('lyrics').value;
 const model =
 document.getElementById('model').value;
 
-document.getElementById('loading').innerHTML =
-'Sending To Suno...';
+document.getElementById('loading')
+.innerHTML = 'Sending To Suno...';
 
 try{
 
@@ -449,24 +606,28 @@ prompt:lyrics,
 customMode:true,
 instrumental:false,
 model:model,
-vocalGender:vocalGender
+vocalGender:vocalGender,
+callBackUrl:"https://example.com/callback"
 
 })
 }
 );
 
-const data = await response.json();
+const data =
+await response.json();
 
 console.log(data);
 
 if(data.code === 200){
 
-document.getElementById('loading').innerHTML =
+document.getElementById('loading')
+.innerHTML =
 'Music Request Sent ✅';
 
 }else{
 
-document.getElementById('loading').innerHTML =
+document.getElementById('loading')
+.innerHTML =
 'Failed : ' + data.msg;
 
 }
@@ -475,7 +636,8 @@ document.getElementById('loading').innerHTML =
 
 console.log(err);
 
-document.getElementById('loading').innerHTML =
+document.getElementById('loading')
+.innerHTML =
 'Server Error';
 
 }
@@ -485,6 +647,7 @@ document.getElementById('loading').innerHTML =
 function setTheme(id){
 
 const themes = {
+
 1:['#0f172a','#111827','#1e293b','#3b82f6','#60a5fa'],
 2:['#082f49','#0c4a6e','#075985','#f59e0b','#38bdf8'],
 3:['#1e1b4b','#312e81','#4338ca','#7c3aed','#c084fc'],
@@ -495,15 +658,25 @@ const themes = {
 8:['#4c1d95','#6d28d9','#7c3aed','#ec4899','#f9a8d4'],
 9:['#3f2f00','#5c4500','#7a5c00','#facc15','#fde68a'],
 10:['#082f49','#0f172a','#1e3a8a','#0ea5e9','#7dd3fc']
+
 };
 
 const t = themes[id];
 
-document.documentElement.style.setProperty('--bg',t[0]);
-document.documentElement.style.setProperty('--card',t[1]);
-document.documentElement.style.setProperty('--input',t[2]);
-document.documentElement.style.setProperty('--primary',t[3]);
-document.documentElement.style.setProperty('--primary2',t[4]);
+document.documentElement
+.style.setProperty('--bg',t[0]);
+
+document.documentElement
+.style.setProperty('--card',t[1]);
+
+document.documentElement
+.style.setProperty('--input',t[2]);
+
+document.documentElement
+.style.setProperty('--primary',t[3]);
+
+document.documentElement
+.style.setProperty('--primary2',t[4]);
 
 }
 
