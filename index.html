@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generat Musik Ai Pro</title>
+<title>AI Studio Pro</title>
 <style>
 :root{
 --bg:#0f172a;
@@ -13,12 +13,16 @@
 --primary2:#60a5fa;
 --text:#fff;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 body{
 background:var(--bg);
 color:var(--text);
 padding-bottom:100px;
-transition:.4s;
 }
 .header{
 padding:30px 20px 80px;
@@ -38,7 +42,7 @@ margin-bottom:20px;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
 .title{
-font-size:25px;
+font-size:24px;
 font-weight:bold;
 margin-bottom:15px;
 color:var(--primary2);
@@ -64,46 +68,13 @@ border:none;
 cursor:pointer;
 font-weight:bold;
 }
-.generate,.save-btn,.credit-btn,.toggle-btn{
+.btn{
 width:100%;
 padding:15px;
 border-radius:15px;
-margin-top:10px;
+margin-top:12px;
 background:linear-gradient(135deg,var(--primary),var(--primary2));
 color:white;
-}
-.row{
-display:flex;
-gap:10px;
-}
-.gender-btn,.theme-btn{
-flex:1;
-padding:14px;
-border-radius:15px;
-background:var(--input);
-color:white;
-}
-.gender-btn.active{
-background:var(--primary);
-}
-.credit-box{
-background:var(--input);
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-}
-.key-text{
-margin-top:10px;
-word-break:break-all;
-font-size:13px;
-}
-.hidden{
-display:none;
-}
-.theme-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
 }
 .nav{
 position:fixed;
@@ -114,26 +85,32 @@ background:var(--card);
 display:flex;
 justify-content:space-around;
 padding:15px 0;
+z-index:999;
 }
 .nav-item{
 text-align:center;
 cursor:pointer;
+font-size:14px;
+}
+.hidden{
+display:none;
 }
 .loading{
 margin-top:15px;
 font-weight:bold;
 color:var(--primary2);
 }
-.song-card{
+.result-card{
 background:#020617;
 padding:15px;
 border-radius:20px;
 margin-top:15px;
 }
-.song-card img{
+.result-card img,
+.result-card video{
 width:100%;
 border-radius:15px;
-margin-bottom:10px;
+margin-top:10px;
 }
 .download{
 display:block;
@@ -149,124 +126,180 @@ audio{
 width:100%;
 margin-top:10px;
 }
+.credit{
+padding:12px;
+background:var(--input);
+border-radius:15px;
+margin-top:10px;
+}
 </style>
 </head>
 <body>
 
 <div class="header">
-<h1>🎵 Generat Musik Ai Pro</h1>
-<p>SunoAPI Music Generator</p>
+<h1>🚀 AI Studio Pro</h1>
+<p>Music • Image • Video Generator</p>
 </div>
 
 <div class="content">
 
+<!-- HOME -->
 <div id="homePage">
 
 <div class="card">
 <div class="title">Welcome 👋</div>
 <p>
-✅ Generate Music<br>
-✅ Play Audio<br>
-✅ Download MP3<br>
-✅ Check Credits<br>
-✅ Delete Key<br>
-✅ 10 Themes<br>
-✅ Auto Loading Status
+Selamat datang di AI Studio Pro ✨<br><br>
+
+Website ini menggunakan:<br>
+🎵 SunoAPI untuk generate music<br>
+🖼 APIFrame AI untuk generate image & video<br><br>
+
+Terima kasih kepada:<br>
+❤️ SunoAPI<br>
+❤️ APIFrame AI<br><br>
+
+Create Music, Images, and Videos with AI 🚀
 </p>
 </div>
 
 </div>
 
-<div id="generatePage" class="hidden">
+<!-- MUSIC -->
+<div id="musicPage" class="hidden">
 
 <div class="card">
 
-<div class="title">Generate Music</div>
+<div class="title">🎵 Generate Music</div>
 
 <div class="label">Judul Lagu</div>
-<input type="text" id="title">
+<input type="text" id="musicTitle">
 
-<div class="label">Style Musik</div>
-<textarea id="style"></textarea>
+<div class="label">Style Music</div>
+<textarea id="musicStyle"></textarea>
 
-<div class="label">Lirik Lagu</div>
-<textarea id="lyrics"></textarea>
-
-<div class="label">Vocal</div>
-
-<div class="row">
-
-<button class="gender-btn"
-id="maleBtn"
-onclick="setGender('m')">
-Male
-</button>
-
-<button class="gender-btn active"
-id="femaleBtn"
-onclick="setGender('f')">
-Female
-</button>
-
-</div>
+<div class="label">Lyrics</div>
+<textarea id="musicLyrics"></textarea>
 
 <div class="label">Model</div>
-
-<select id="model">
+<select id="musicModel">
 <option value="V5_5">V5.5</option>
 <option value="V5">V5</option>
 <option value="V4">V4</option>
 </select>
 
-<button class="generate"
-onclick="generateMusic()">
+<button class="btn" onclick="generateMusic()">
 GENERATE MUSIC
 </button>
 
-<div class="loading"
-id="loading"></div>
+<div class="loading" id="musicLoading"></div>
 
-<div id="result"></div>
+<div id="musicResult"></div>
+
+</div>
+
+</div>
+
+<!-- IMAGE -->
+<div id="imagePage" class="hidden">
+
+<div class="card">
+
+<div class="title">🖼 Generate Image</div>
+
+<div class="label">Prompt</div>
+<textarea id="imagePrompt"></textarea>
+
+<div class="label">Model</div>
+<select id="imageModel">
+<option value="flux">Flux</option>
+<option value="midjourney">Midjourney</option>
+<option value="gpt-image">GPT Image</option>
+<option value="sdxl">SDXL</option>
+</select>
+
+<div class="label">Aspect Ratio</div>
+<select id="imageAspect">
+<option value="1:1">1:1</option>
+<option value="16:9">16:9</option>
+<option value="9:16">9:16</option>
+</select>
+
+<button class="btn" onclick="generateImage()">
+GENERATE IMAGE
+</button>
+
+<div class="loading" id="imageLoading"></div>
+
+<div id="imageResult"></div>
 
 </div>
 
 </div>
 
+<!-- VIDEO -->
+<div id="videoPage" class="hidden">
+
+<div class="card">
+
+<div class="title">🎬 Generate Video</div>
+
+<div class="label">Upload Image (Optional)</div>
+<input type="file" id="videoImage">
+
+<div class="label">Prompt Video</div>
+<textarea id="videoPrompt"></textarea>
+
+<div class="label">Model</div>
+<select id="videoModel">
+<option value="wan">Wan</option>
+<option value="kling">Kling</option>
+<option value="runway">Runway</option>
+</select>
+
+<div class="label">Duration</div>
+<select id="videoDuration">
+<option value="5">5 Seconds</option>
+<option value="8">8 Seconds</option>
+</select>
+
+<button class="btn" onclick="generateVideo()">
+GENERATE VIDEO
+</button>
+
+<div class="loading" id="videoLoading"></div>
+
+<div id="videoResult"></div>
+
+</div>
+
+</div>
+
+<!-- SETTINGS -->
 <div id="settingsPage" class="hidden">
 
 <div class="card">
 
-<div class="title">API Settings</div>
+<div class="title">⚙ API Settings</div>
 
-<textarea
-id="apikeys"
-placeholder="1 API key per baris"></textarea>
+<div class="label">Suno API Key</div>
+<input type="text" id="sunoKey">
 
-<button class="save-btn"
-onclick="saveApiKeys()">
+<div class="label">APIFrame API Key</div>
+<input type="text" id="apiframeKey">
+
+<button class="btn" onclick="saveKeys()">
 SAVE API KEYS
 </button>
 
-<div id="creditsBox"></div>
-
+<div class="credit" id="creditBox">
+🎵 Suno Credits : -<br>
+🖼 APIFrame Credits : -
 </div>
 
-<div class="card">
-
-<div class="title">Themes</div>
-
-<div class="theme-grid">
-
-<button class="theme-btn" onclick="setTheme(1)">Modern</button>
-<button class="theme-btn" onclick="setTheme(2)">Beach</button>
-<button class="theme-btn" onclick="setTheme(3)">Galaxy</button>
-<button class="theme-btn" onclick="setTheme(4)">Cyber</button>
-<button class="theme-btn" onclick="setTheme(5)">Neon</button>
-<button class="theme-btn" onclick="setTheme(6)">Forest</button>
-<button class="theme-btn" onclick="setTheme(7)">Sunset</button>
-<button class="theme-btn" onclick="setTheme(8)">Candy</button>
-<button class="theme-btn" onclick="setTheme(9)">Gold</button>
-<button class="theme-btn" onclick="setTheme(10)">Ocean</button>
+<button class="btn" onclick="checkCredits()">
+CHECK CREDITS
+</button>
 
 </div>
 
@@ -274,22 +307,26 @@ SAVE API KEYS
 
 </div>
 
-</div>
-
+<!-- NAV -->
 <div class="nav">
 
-<div class="nav-item"
-onclick="showPage('home')">
+<div class="nav-item" onclick="showPage('home')">
 🏠<br>Home
 </div>
 
-<div class="nav-item"
-onclick="showPage('generate')">
-🎵<br>Generate
+<div class="nav-item" onclick="showPage('music')">
+🎵<br>Music
 </div>
 
-<div class="nav-item"
-onclick="showPage('settings')">
+<div class="nav-item" onclick="showPage('image')">
+🖼<br>Image
+</div>
+
+<div class="nav-item" onclick="showPage('video')">
+🎬<br>Video
+</div>
+
+<div class="nav-item" onclick="showPage('settings')">
 ⚙️<br>Settings
 </div>
 
@@ -297,207 +334,71 @@ onclick="showPage('settings')">
 
 <script>
 
-let vocalGender = 'f';
-
-function setGender(type){
-
-vocalGender = type;
-
-maleBtn.classList.remove('active');
-femaleBtn.classList.remove('active');
-
-if(type === 'm'){
-maleBtn.classList.add('active');
-}else{
-femaleBtn.classList.add('active');
-}
-
-}
-
 function showPage(page){
 
 homePage.classList.add('hidden');
-generatePage.classList.add('hidden');
+musicPage.classList.add('hidden');
+imagePage.classList.add('hidden');
+videoPage.classList.add('hidden');
 settingsPage.classList.add('hidden');
 
-if(page === 'home'){
-homePage.classList.remove('hidden');
-}
-
-if(page === 'generate'){
-generatePage.classList.remove('hidden');
-}
-
-if(page === 'settings'){
-settingsPage.classList.remove('hidden');
-}
+if(page==='home') homePage.classList.remove('hidden');
+if(page==='music') musicPage.classList.remove('hidden');
+if(page==='image') imagePage.classList.remove('hidden');
+if(page==='video') videoPage.classList.remove('hidden');
+if(page==='settings') settingsPage.classList.remove('hidden');
 
 }
 
-function hideKey(key){
-
-return key.substring(0,4)
-+ '********'
-+ key.substring(key.length-4);
-
-}
-
-function saveApiKeys(){
-
-const raw =
-document.getElementById('apikeys').value;
-
-const keys = raw
-.split('\n')
-.map(k => k.trim())
-.filter(k => k);
+function saveKeys(){
 
 localStorage.setItem(
-'gmusic_keys',
-JSON.stringify(keys)
+'suno_key',
+document.getElementById('sunoKey').value
+);
+
+localStorage.setItem(
+'apiframe_key',
+document.getElementById('apiframeKey').value
 );
 
 alert('API Keys Saved');
 
-renderKeys();
-
 }
 
-function renderKeys(){
+async function checkCredits(){
 
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
+const apiFrameKey =
+localStorage.getItem('apiframe_key');
 
-creditsBox.innerHTML = '';
-
-keys.forEach((key,index)=>{
-
-creditsBox.innerHTML += `
-
-<div class="credit-box">
-
-<b>API KEY ${index+1}</b>
-
-<div class="key-text"
-id="keyText${index}">
-${hideKey(key)}
-</div>
-
-<button class="toggle-btn"
-onclick="toggleKey(${index})">
-👁 Show / Hide Key
-</button>
-
-<button class="credit-btn"
-onclick="checkSingleCredit('${key}',${index})">
-💳 Check Credits
-</button>
-
-<button class="toggle-btn"
-onclick="deleteKey(${index})">
-🗑 Delete Key
-</button>
-
-<div class="key-text"
-id="creditResult${index}">
-Credits Left : -
-</div>
-
-</div>
-
-`;
-
-});
-
+if(!apiFrameKey){
+alert('Masukkan APIFrame Key');
+return;
 }
 
-function toggleKey(index){
-
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
-
-const text =
-document.getElementById(
-'keyText'+index
-);
-
-if(text.dataset.show === '1'){
-
-text.innerHTML =
-hideKey(keys[index]);
-
-text.dataset.show = '0';
-
-}else{
-
-text.innerHTML = keys[index];
-
-text.dataset.show = '1';
-
-}
-
-}
-
-function deleteKey(index){
-
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
-
-keys.splice(index,1);
-
-localStorage.setItem(
-'gmusic_keys',
-JSON.stringify(keys)
-);
-
-renderKeys();
-
-}
-
-async function checkSingleCredit(key,index){
-
-const result =
-document.getElementById(
-'creditResult'+index
-);
-
-result.innerHTML =
-'Checking Credits...';
+creditBox.innerHTML = 'Checking Credits...';
 
 try{
 
 const response = await fetch(
-'https://api.sunoapi.org/api/v1/generate/credit',
+'https://api.apiframe.ai/v2/me',
 {
-method:'GET',
 headers:{
-'Authorization':'Bearer ' + key
+'X-API-Key':apiFrameKey
 }
 }
 );
 
-const data =
-await response.json();
+const data = await response.json();
 
-if(data.code === 200){
-
-result.innerHTML =
-'Credits Left : ' + data.data;
-
-}else{
-
-result.innerHTML =
-'Failed : ' + data.msg;
-
-}
+creditBox.innerHTML = `
+🎵 Suno Credits : Check via SunoAPI<br>
+🖼 APIFrame Credits : ${data.team?.credits || 0}
+`;
 
 }catch(err){
 
-result.innerHTML =
-'Error Checking Credits';
+creditBox.innerHTML = 'Failed check credits';
 
 }
 
@@ -505,39 +406,19 @@ result.innerHTML =
 
 async function generateMusic(){
 
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
-
-const apiKey = keys[0];
+const apiKey =
+localStorage.getItem('suno_key');
 
 if(!apiKey){
-
-alert('Masukkan API Key');
-
+alert('Masukkan Suno API Key');
 showPage('settings');
-
 return;
-
 }
 
-const songTitle =
-document.getElementById('title').value;
+musicLoading.innerHTML =
+'Generating Music...';
 
-const style =
-document.getElementById('style').value;
-
-const lyrics =
-document.getElementById('lyrics').value;
-
-const model =
-document.getElementById('model').value;
-
-document.getElementById('loading')
-.innerHTML = 'Generating Music...';
-
-document.getElementById('result')
-.innerHTML = '';
+musicResult.innerHTML='';
 
 try{
 
@@ -547,188 +428,183 @@ const response = await fetch(
 method:'POST',
 headers:{
 'Content-Type':'application/json',
-'Authorization':'Bearer ' + apiKey
+'Authorization':'Bearer '+apiKey
 },
 body:JSON.stringify({
-
-title:songTitle,
-style:style,
-prompt:lyrics,
+title:musicTitle.value,
+style:musicStyle.value,
+prompt:musicLyrics.value,
 customMode:true,
 instrumental:false,
-model:model,
-vocalGender:vocalGender,
-callBackUrl:"https://example.com/callback"
-
+model:musicModel.value
 })
 }
 );
 
 const data = await response.json();
 
-console.log(data);
+musicLoading.innerHTML =
+'Music request sent ✅';
 
-if(data.code !== 200){
-
-loading.innerHTML =
-'Failed : ' + data.msg;
-
-return;
-
-}
-
-const taskId =
-data.data.taskId;
-
-loading.innerHTML =
-'Processing Music...';
-
-checkMusicResult(taskId,apiKey);
+musicResult.innerHTML = `
+<div class="result-card">
+<h3>Music Submitted</h3>
+<p>Task ID : ${data.data?.taskId || 'Unknown'}</p>
+</div>
+`;
 
 }catch(err){
 
-console.log(err);
-
-loading.innerHTML =
-'Server Error';
+musicLoading.innerHTML =
+'Generate failed';
 
 }
 
 }
 
-async function checkMusicResult(taskId,apiKey){
+async function generateImage(){
 
-let tryCount = 0;
+const apiKey =
+localStorage.getItem('apiframe_key');
 
-const interval = setInterval(async()=>{
-
-tryCount++;
-
-if(tryCount > 60){
-
-clearInterval(interval);
-
-loading.innerHTML =
-'Timeout Generate';
-
+if(!apiKey){
+alert('Masukkan APIFrame API Key');
+showPage('settings');
 return;
-
 }
+
+imageLoading.innerHTML =
+'Generating Image...';
+
+imageResult.innerHTML='';
 
 try{
 
 const response = await fetch(
-'https://api.sunoapi.org/api/v1/generate/record-info?taskId=' + taskId,
+'https://api.apiframe.ai/v2/images/generate',
 {
-method:'GET',
+method:'POST',
 headers:{
-'Authorization':'Bearer ' + apiKey
-}
+'Content-Type':'application/json',
+'X-API-Key':apiKey
+},
+body:JSON.stringify({
+model:imageModel.value,
+prompt:imagePrompt.value,
+aspect_ratio:imageAspect.value
+})
 }
 );
 
 const data = await response.json();
 
-console.log(data);
+imageLoading.innerHTML =
+'Image request submitted ✅';
 
-if(
-data.code === 200 &&
-data.data &&
-data.data.status === 'SUCCESS'
-){
-
-clearInterval(interval);
-
-loading.innerHTML =
-'Music Complete ✅';
-
-const songs =
-data.data.response.sunoData;
-
-let html = '';
-
-songs.forEach(song=>{
-
-html += `
-
-<div class="song-card">
-
-<img src="${song.imageUrl}">
-
-<h3>${song.title}</h3>
-
-<p>${song.tags || ''}</p>
-
-<audio controls
-src="${song.audioUrl}">
-</audio>
-
-<a class="download"
-href="${song.audioUrl}"
-download>
-
-⬇ Download MP3
-
-</a>
-
+imageResult.innerHTML = `
+<div class="result-card">
+<h3>Image Submitted</h3>
+<p>Job ID : ${data.id || 'Unknown'}</p>
 </div>
-
 `;
-
-});
-
-document.getElementById('result')
-.innerHTML = html;
-
-}
 
 }catch(err){
 
-console.log(err);
+imageLoading.innerHTML =
+'Generate failed';
 
 }
 
-},5000);
+}
+
+async function generateVideo(){
+
+const apiKey =
+localStorage.getItem('apiframe_key');
+
+if(!apiKey){
+alert('Masukkan APIFrame API Key');
+showPage('settings');
+return;
+}
+
+videoLoading.innerHTML =
+'Uploading & Generating Video...';
+
+videoResult.innerHTML='';
+
+try{
+
+const imageFile =
+document.getElementById('videoImage').files[0];
+
+let imageUrl = '';
+
+if(imageFile){
+
+const formData = new FormData();
+formData.append('image', imageFile);
+
+const upload = await fetch(
+'https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY',
+{
+method:'POST',
+body:formData
+}
+);
+
+const uploadData =
+await upload.json();
+
+imageUrl =
+uploadData.data.url;
 
 }
 
-function setTheme(id){
+const response = await fetch(
+'https://api.apiframe.ai/v2/videos/generate',
+{
+method:'POST',
+headers:{
+'Content-Type':'application/json',
+'X-API-Key':apiKey
+},
+body:JSON.stringify({
+model:videoModel.value,
+prompt:videoPrompt.value,
+duration:Number(videoDuration.value),
+image_url:imageUrl
+})
+}
+);
 
-const themes = {
+const data = await response.json();
 
-1:['#0f172a','#111827','#1e293b','#3b82f6','#60a5fa'],
-2:['#082f49','#0c4a6e','#075985','#f59e0b','#38bdf8'],
-3:['#1e1b4b','#312e81','#4338ca','#7c3aed','#c084fc'],
-4:['#030712','#111827','#1f2937','#06b6d4','#22d3ee'],
-5:['#0a0a0a','#1a1a1a','#262626','#ff00ff','#00ffff'],
-6:['#052e16','#14532d','#166534','#22c55e','#4ade80'],
-7:['#431407','#7c2d12','#9a3412','#fb923c','#fdba74'],
-8:['#4c1d95','#6d28d9','#7c3aed','#ec4899','#f9a8d4'],
-9:['#3f2f00','#5c4500','#7a5c00','#facc15','#fde68a'],
-10:['#082f49','#0f172a','#1e3a8a','#0ea5e9','#7dd3fc']
+videoLoading.innerHTML =
+'Video request submitted ✅';
 
-};
+videoResult.innerHTML = `
+<div class="result-card">
+<h3>Video Submitted</h3>
+<p>Job ID : ${data.id || 'Unknown'}</p>
+<p>⏳ Render video biasanya 1-3 menit</p>
+</div>
+`;
 
-const t = themes[id];
+}catch(err){
 
-document.documentElement
-.style.setProperty('--bg',t[0]);
-
-document.documentElement
-.style.setProperty('--card',t[1]);
-
-document.documentElement
-.style.setProperty('--input',t[2]);
-
-document.documentElement
-.style.setProperty('--primary',t[3]);
-
-document.documentElement
-.style.setProperty('--primary2',t[4]);
+videoLoading.innerHTML =
+'Generate failed';
 
 }
 
-renderKeys();
+}
+
+document.getElementById('sunoKey').value =
+localStorage.getItem('suno_key') || '';
+
+document.getElementById('apiframeKey').value =
+localStorage.getItem('apiframe_key') || '';
 
 </script>
 
