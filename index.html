@@ -2,9 +2,21 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Generat Musik Ai Pro</title>
+
+<!-- ICON -->
+<link rel="icon"
+type="image/png"
+href="https://cdn-icons-png.flaticon.com/512/3659/3659899.png">
+
+<link rel="apple-touch-icon"
+href="https://cdn-icons-png.flaticon.com/512/3659/3659899.png">
+
 <style>
+
 :root{
 --bg:#0f172a;
 --card:#111827;
@@ -13,23 +25,37 @@
 --primary2:#60a5fa;
 --text:#fff;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
 background:var(--bg);
 color:var(--text);
 padding-bottom:100px;
 transition:.4s;
 }
+
 .header{
 padding:30px 20px 80px;
-background:linear-gradient(135deg,var(--primary),var(--primary2));
+background:linear-gradient(
+135deg,
+var(--primary),
+var(--primary2)
+);
 border-bottom-left-radius:35px;
 border-bottom-right-radius:35px;
 }
+
 .content{
 padding:20px;
 margin-top:-40px;
 }
+
 .card{
 background:var(--card);
 padding:20px;
@@ -37,16 +63,21 @@ border-radius:25px;
 margin-bottom:20px;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
+
 .title{
 font-size:25px;
 font-weight:bold;
 margin-bottom:15px;
 color:var(--primary2);
 }
+
 .label{
 margin:15px 0 8px;
 }
-input,textarea,select{
+
+input,
+textarea,
+select{
 width:100%;
 padding:15px;
 border:none;
@@ -55,56 +86,68 @@ border-radius:15px;
 background:var(--input);
 color:white;
 }
+
 textarea{
 resize:none;
 min-height:120px;
 }
+
 button{
 border:none;
 cursor:pointer;
 font-weight:bold;
 }
-.generate,.save-btn,.credit-btn,.toggle-btn{
+
+.generate,
+.save-btn,
+.credit-btn,
+.toggle-btn{
 width:100%;
 padding:15px;
 border-radius:15px;
 margin-top:10px;
-background:linear-gradient(135deg,var(--primary),var(--primary2));
+background:linear-gradient(
+135deg,
+var(--primary),
+var(--primary2)
+);
 color:white;
 }
+
 .row{
 display:flex;
 gap:10px;
 }
-.gender-btn,.theme-btn{
+
+.gender-btn{
 flex:1;
 padding:14px;
 border-radius:15px;
 background:var(--input);
 color:white;
 }
+
 .gender-btn.active{
 background:var(--primary);
 }
+
 .credit-box{
 background:var(--input);
 padding:15px;
 border-radius:15px;
 margin-top:15px;
 }
+
 .key-text{
 margin-top:10px;
 word-break:break-all;
 font-size:13px;
 }
+
 .hidden{
 display:none;
 }
-.theme-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-}
+
 .nav{
 position:fixed;
 bottom:0;
@@ -115,26 +158,41 @@ display:flex;
 justify-content:space-around;
 padding:15px 0;
 }
+
 .nav-item{
 text-align:center;
 cursor:pointer;
+font-size:13px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
 }
+
+.nav-icon{
+font-size:22px;
+}
+
 .loading{
 margin-top:15px;
 font-weight:bold;
 color:var(--primary2);
 }
+
 .song-card{
 background:#020617;
 padding:15px;
 border-radius:20px;
 margin-top:15px;
 }
+
 .song-card img{
 width:100%;
 border-radius:15px;
 margin-bottom:10px;
 }
+
 .download{
 display:block;
 text-align:center;
@@ -145,89 +203,150 @@ color:white;
 text-decoration:none;
 margin-top:10px;
 }
+
 audio{
 width:100%;
 margin-top:10px;
 }
+
 </style>
 </head>
 <body>
 
 <div class="header">
-<h1>ðŸŽµ Generat Musik Ai Pro</h1>
-<p>SunoAPI Music Generator</p>
+
+<h1>🎵 Generat Musik Ai Pro</h1>
+
+<p>
+SunoAPI + APIFrame Music Generator
+</p>
+
 </div>
 
 <div class="content">
 
+<!-- HOME -->
+
 <div id="homePage">
 
 <div class="card">
-<div class="title">Welcome ðŸ‘‹</div>
+
+<div class="title">
+Welcome 👋
+</div>
+
 <p>
-âœ… Generate Music<br>
-âœ… Play Audio<br>
-âœ… Download MP3<br>
-âœ… Check Credits<br>
-âœ… Delete Key<br>
-âœ… 10 Themes<br>
-âœ… Auto Loading Status
+
+✅ Generate Music<br>
+✅ SunoAPI Support<br>
+✅ APIFrame Support<br>
+✅ Play Audio<br>
+✅ Download MP3<br>
+✅ Check Credits Suno<br>
+✅ Delete API Key<br>
+✅ Beautiful UI
+
 </p>
-</div>
 
 </div>
 
-<div id="generatePage" class="hidden">
+</div>
+
+<!-- GENERATE -->
+
+<div id="generatePage"
+class="hidden">
 
 <div class="card">
 
-<div class="title">Generate Music</div>
+<div class="title">
+Generate Music
+</div>
 
-<div class="label">Judul Lagu</div>
-<input type="text" id="title">
+<div class="label">
+Provider
+</div>
 
-<div class="label">Style Musik</div>
+<select id="provider">
+
+<option value="suno">
+SunoAPI
+</option>
+
+<option value="apiframe">
+APIFrame
+</option>
+
+</select>
+
+<div class="label">
+Judul Lagu
+</div>
+
+<input type="text"
+id="title">
+
+<div class="label">
+Style Musik
+</div>
+
 <textarea id="style"></textarea>
 
-<div class="label">Lirik Lagu</div>
+<div class="label">
+Lirik Lagu
+</div>
+
 <textarea id="lyrics"></textarea>
 
-<div class="label">Vocal</div>
+<div class="label">
+Vocal
+</div>
 
 <div class="row">
 
 <button class="gender-btn"
 id="maleBtn"
 onclick="setGender('m')">
+
 Male
+
 </button>
 
 <button class="gender-btn active"
 id="femaleBtn"
 onclick="setGender('f')">
+
 Female
+
 </button>
 
 </div>
 
-<div class="label">Model</div>
+<div class="label">
+Model
+</div>
 
 <select id="model">
-<option value="V5_5">V5.5</option>
-<option value="V5">V5</option>
-<option value="V4">V4</option>
-</select>
 
-<div class="label">Provider</div>
+<option value="V5_5">
+V5.5
+</option>
 
-<select id="provider">
-<option value="suno">SunoAPI</option>
-<option value="apiframe">APIFrame</option>
+<option value="V5">
+V5
+</option>
+
+<option value="V4">
+V4
+</option>
+
 </select>
 
 <button class="generate"
 onclick="generateMusic()">
+
 GENERATE MUSIC
+
 </button>
 
 <div class="loading"
@@ -239,71 +358,74 @@ id="loading"></div>
 
 </div>
 
-<div id="settingsPage" class="hidden">
+<!-- SETTINGS -->
+
+<div id="settingsPage"
+class="hidden">
 
 <div class="card">
 
-<div class="title">API Settings</div>
+<div class="title">
+API Settings
+</div>
 
-<div class="label">Suno API Key</div>
+<div class="label">
+🎵 Suno API Key
+</div>
+
 <textarea
 id="sunoKey"
 placeholder="Masukkan Suno API Key"></textarea>
 
-<div class="label">APIFrame API Key</div>
+<div class="label">
+🖼 APIFrame API Key
+</div>
+
 <textarea
 id="apiframeKey"
 placeholder="Masukkan APIFrame API Key"></textarea>
 
 <button class="save-btn"
 onclick="saveApiKeys()">
+
 SAVE API KEYS
+
 </button>
 
 <div id="creditsBox"></div>
 
 </div>
 
-<div class="card">
-
-<div class="title">Themes</div>
-
-<div class="theme-grid">
-
-<button class="theme-btn" onclick="setTheme(1)">Modern</button>
-<button class="theme-btn" onclick="setTheme(2)">Beach</button>
-<button class="theme-btn" onclick="setTheme(3)">Galaxy</button>
-<button class="theme-btn" onclick="setTheme(4)">Cyber</button>
-<button class="theme-btn" onclick="setTheme(5)">Neon</button>
-<button class="theme-btn" onclick="setTheme(6)">Forest</button>
-<button class="theme-btn" onclick="setTheme(7)">Sunset</button>
-<button class="theme-btn" onclick="setTheme(8)">Candy</button>
-<button class="theme-btn" onclick="setTheme(9)">Gold</button>
-<button class="theme-btn" onclick="setTheme(10)">Ocean</button>
-
 </div>
 
 </div>
 
-</div>
-
-</div>
+<!-- NAV -->
 
 <div class="nav">
 
 <div class="nav-item"
 onclick="showPage('home')">
-ðŸ <br>Home
+
+<div class="nav-icon">🏠</div>
+<div>Home</div>
+
 </div>
 
 <div class="nav-item"
 onclick="showPage('generate')">
-ðŸŽµ<br>Generate
+
+<div class="nav-icon">🎵</div>
+<div>Generate</div>
+
 </div>
 
 <div class="nav-item"
 onclick="showPage('settings')">
-âš™ï¸<br>Settings
+
+<div class="nav-icon">⚙️</div>
+<div>Settings</div>
+
 </div>
 
 </div>
@@ -349,6 +471,8 @@ settingsPage.classList.remove('hidden');
 
 function hideKey(key){
 
+if(!key) return 'Belum Ada Key';
+
 return key.substring(0,4)
 + '********'
 + key.substring(key.length-4);
@@ -358,10 +482,10 @@ return key.substring(0,4)
 function saveApiKeys(){
 
 const sunoKey =
-document.getElementById('sunoKey').value.trim();
+document.getElementById('sunoKey').value;
 
 const apiframeKey =
-document.getElementById('apiframeKey').value.trim();
+document.getElementById('apiframeKey').value;
 
 localStorage.setItem(
 'suno_key',
@@ -374,6 +498,26 @@ apiframeKey
 );
 
 alert('API Keys Saved');
+
+renderKeys();
+
+}
+
+function deleteSunoKey(){
+
+localStorage.removeItem(
+'suno_key'
+);
+
+renderKeys();
+
+}
+
+function deleteApiFrameKey(){
+
+localStorage.removeItem(
+'apiframe_key'
+);
 
 renderKeys();
 
@@ -397,21 +541,49 @@ creditsBox.innerHTML = `
 
 <div class="credit-box">
 
-<b>ðŸŽµ Suno API</b>
+<b>🎵 SUNO API KEY</b>
 
 <div class="key-text">
-${sunoKey ? hideKey(sunoKey) : 'Belum ada key'}
+${hideKey(sunoKey)}
+</div>
+
+<button class="credit-btn"
+onclick="checkSingleCredit('${sunoKey}')">
+
+💳 Check Credits
+
+</button>
+
+<button class="toggle-btn"
+onclick="deleteSunoKey()">
+
+🗑 Delete Key
+
+</button>
+
+<div class="key-text"
+id="creditResult">
+
+Credits Left : -
+
 </div>
 
 </div>
 
 <div class="credit-box">
 
-<b>ðŸ–¼ APIFrame API</b>
+<b>🖼 APIFRAME API KEY</b>
 
 <div class="key-text">
-${apiframeKey ? hideKey(apiframeKey) : 'Belum ada key'}
+${hideKey(apiframeKey)}
 </div>
+
+<button class="toggle-btn"
+onclick="deleteApiFrameKey()">
+
+🗑 Delete Key
+
+</button>
 
 </div>
 
@@ -419,56 +591,11 @@ ${apiframeKey ? hideKey(apiframeKey) : 'Belum ada key'}
 
 }
 
-function toggleKey(index){
-
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
-
-const text =
-document.getElementById(
-'keyText'+index
-);
-
-if(text.dataset.show === '1'){
-
-text.innerHTML =
-hideKey(keys[index]);
-
-text.dataset.show = '0';
-
-}else{
-
-text.innerHTML = keys[index];
-
-text.dataset.show = '1';
-
-}
-
-}
-
-function deleteKey(index){
-
-const keys = JSON.parse(
-localStorage.getItem('gmusic_keys')
-) || [];
-
-keys.splice(index,1);
-
-localStorage.setItem(
-'gmusic_keys',
-JSON.stringify(keys)
-);
-
-renderKeys();
-
-}
-
-async function checkSingleCredit(key,index){
+async function checkSingleCredit(key){
 
 const result =
 document.getElementById(
-'creditResult'+index
+'creditResult'
 );
 
 result.innerHTML =
@@ -551,11 +678,10 @@ document.getElementById('lyrics').value;
 const model =
 document.getElementById('model').value;
 
-document.getElementById('loading')
-.innerHTML = 'Generating Music...';
+loading.innerHTML =
+'Generating Music...';
 
-document.getElementById('result')
-.innerHTML = '';
+result.innerHTML = '';
 
 try{
 
@@ -624,21 +750,25 @@ title:songTitle
 
 const data = await response.json();
 
-console.log(data);
-
 loading.innerHTML =
-'APIFrame Music Submitted âœ…';
+'APIFrame Music Submitted ✅';
 
-document.getElementById('result')
-.innerHTML = `
+result.innerHTML = `
 
 <div class="song-card">
 
-<h3>ðŸŽµ APIFrame Request Sent</h3>
+<h3>
+🎵 APIFrame Request Sent
+</h3>
 
-<p>Job ID : ${data.id || 'Unknown'}</p>
+<p>
+Job ID :
+${data.id || 'Unknown'}
+</p>
 
-<p>â³ Tunggu 1-3 menit untuk render lagu</p>
+<p>
+⏳ Tunggu 1-3 menit
+</p>
 
 </div>
 
@@ -661,7 +791,8 @@ async function checkMusicResult(taskId,apiKey){
 
 let tryCount = 0;
 
-const interval = setInterval(async()=>{
+const interval =
+setInterval(async()=>{
 
 tryCount++;
 
@@ -679,7 +810,8 @@ return;
 try{
 
 const response = await fetch(
-'https://api.sunoapi.org/api/v1/generate/record-info?taskId=' + taskId,
+'https://api.sunoapi.org/api/v1/generate/record-info?taskId='
++ taskId,
 {
 method:'GET',
 headers:{
@@ -688,9 +820,8 @@ headers:{
 }
 );
 
-const data = await response.json();
-
-console.log(data);
+const data =
+await response.json();
 
 if(
 data.code === 200 &&
@@ -701,7 +832,7 @@ data.data.status === 'SUCCESS'
 clearInterval(interval);
 
 loading.innerHTML =
-'Music Complete âœ…';
+'Music Complete ✅';
 
 const songs =
 data.data.response.sunoData;
@@ -728,7 +859,7 @@ src="${song.audioUrl}">
 href="${song.audioUrl}"
 download>
 
-â¬‡ Download MP3
+⬇ Download MP3
 
 </a>
 
@@ -738,8 +869,7 @@ download>
 
 });
 
-document.getElementById('result')
-.innerHTML = html;
+result.innerHTML = html;
 
 }
 
@@ -753,45 +883,9 @@ console.log(err);
 
 }
 
-function setTheme(id){
-
-const themes = {
-
-1:['#0f172a','#111827','#1e293b','#3b82f6','#60a5fa'],
-2:['#082f49','#0c4a6e','#075985','#f59e0b','#38bdf8'],
-3:['#1e1b4b','#312e81','#4338ca','#7c3aed','#c084fc'],
-4:['#030712','#111827','#1f2937','#06b6d4','#22d3ee'],
-5:['#0a0a0a','#1a1a1a','#262626','#ff00ff','#00ffff'],
-6:['#052e16','#14532d','#166534','#22c55e','#4ade80'],
-7:['#431407','#7c2d12','#9a3412','#fb923c','#fdba74'],
-8:['#4c1d95','#6d28d9','#7c3aed','#ec4899','#f9a8d4'],
-9:['#3f2f00','#5c4500','#7a5c00','#facc15','#fde68a'],
-10:['#082f49','#0f172a','#1e3a8a','#0ea5e9','#7dd3fc']
-
-};
-
-const t = themes[id];
-
-document.documentElement
-.style.setProperty('--bg',t[0]);
-
-document.documentElement
-.style.setProperty('--card',t[1]);
-
-document.documentElement
-.style.setProperty('--input',t[2]);
-
-document.documentElement
-.style.setProperty('--primary',t[3]);
-
-document.documentElement
-.style.setProperty('--primary2',t[4]);
-
-}
-
 renderKeys();
 
 </script>
 
 </body>
-</html>
+  </html>
