@@ -1,1 +1,1012 @@
-yih
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Generat Musik Ai</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#0f172a;
+--card:#111827;
+--input:#1e293b;
+--primary:#3b82f6;
+--primary2:#60a5fa;
+--text:#ffffff;
+--sub:#cbd5e1;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+min-height:100vh;
+overflow-x:hidden;
+transition:0.3s;
+}
+
+.header{
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+padding:35px 20px 90px;
+border-bottom-left-radius:40px;
+border-bottom-right-radius:40px;
+position:relative;
+overflow:hidden;
+}
+
+.header::before{
+content:'';
+position:absolute;
+width:200%;
+height:120px;
+background:rgba(255,255,255,0.15);
+bottom:-40px;
+left:-50%;
+border-radius:45%;
+animation:wave 8s linear infinite;
+}
+
+.header::after{
+content:'';
+position:absolute;
+width:200%;
+height:140px;
+background:rgba(255,255,255,0.2);
+bottom:-55px;
+left:-50%;
+border-radius:40%;
+animation:wave 12s linear infinite reverse;
+}
+
+@keyframes wave{
+0%{
+transform:translateX(0);
+}
+100%{
+transform:translateX(-25%);
+}
+}
+
+.logo{
+font-size:30px;
+font-weight:700;
+position:relative;
+z-index:2;
+}
+
+.sub{
+margin-top:10px;
+color:white;
+line-height:1.7;
+position:relative;
+z-index:2;
+}
+
+.content{
+padding:20px;
+margin-top:-50px;
+padding-bottom:120px;
+}
+
+.card{
+background:var(--card);
+border-radius:28px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+transition:0.3s;
+}
+
+.title{
+color:var(--primary2);
+font-size:28px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.desc{
+color:var(--sub);
+line-height:1.8;
+}
+
+.label{
+margin-top:18px;
+margin-bottom:10px;
+color:var(--primary2);
+font-weight:600;
+}
+
+input,
+textarea,
+select{
+width:100%;
+border:none;
+outline:none;
+background:var(--input);
+color:white;
+padding:16px;
+border-radius:18px;
+margin-bottom:14px;
+font-size:14px;
+}
+
+textarea{
+resize:none;
+min-height:140px;
+}
+
+.row{
+display:flex;
+gap:10px;
+}
+
+.gender-btn,
+.theme-btn{
+flex:1;
+border:none;
+padding:15px;
+border-radius:18px;
+background:var(--input);
+color:white;
+font-weight:600;
+}
+
+.gender-btn.active,
+.theme-btn.active{
+background:var(--primary);
+}
+
+.generate,
+.save-btn,
+.credit-btn,
+.toggle-btn{
+width:100%;
+border:none;
+padding:16px;
+border-radius:18px;
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+color:white;
+font-weight:700;
+margin-top:10px;
+}
+
+.result{
+margin-top:20px;
+}
+
+.song-card{
+background:#020617;
+border-radius:20px;
+padding:15px;
+margin-top:15px;
+}
+
+.song-card img{
+width:100%;
+border-radius:16px;
+margin-bottom:12px;
+}
+
+.song-title{
+font-size:20px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+audio{
+width:100%;
+margin-top:10px;
+}
+
+.download{
+display:block;
+text-align:center;
+background:var(--primary);
+color:white;
+padding:14px;
+border-radius:14px;
+margin-top:12px;
+text-decoration:none;
+font-weight:700;
+}
+
+.nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:var(--card);
+display:flex;
+justify-content:space-around;
+padding:14px 0;
+border-top-left-radius:25px;
+border-top-right-radius:25px;
+z-index:999;
+}
+
+.nav-item{
+text-align:center;
+color:#94a3b8;
+font-size:13px;
+}
+
+.nav-item.active{
+color:var(--primary2);
+}
+
+.icon{
+font-size:24px;
+margin-bottom:5px;
+}
+
+.hidden{
+display:none;
+}
+
+.loading{
+text-align:center;
+margin-top:20px;
+color:var(--primary2);
+font-size:20px;
+font-weight:700;
+line-height:1.8;
+}
+
+.credit-box{
+background:var(--input);
+padding:15px;
+border-radius:16px;
+margin-top:15px;
+}
+
+.key-text{
+word-break:break-all;
+margin-top:10px;
+font-size:13px;
+color:#e2e8f0;
+}
+
+.theme-row{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+
+<div class="logo">
+🎵 Generat Musik Ai
+</div>
+
+<div class="sub">
+Create AI Music Easily With Suno API
+</div>
+
+</div>
+
+<div class="content">
+
+<div id="homePage">
+
+<div class="card">
+
+<div class="title">
+Welcome 👋
+</div>
+
+<div class="desc">
+
+Buat lagu AI langsung dari HP.
+
+<br><br>
+
+✅ Female / Male Vocal<br>
+✅ Custom Lyrics<br>
+✅ Multi API Key<br>
+✅ Auto Credits Check<br>
+✅ Download MP3<br>
+✅ Theme Settings<br>
+✅ Mobile Friendly
+
+</div>
+
+</div>
+
+</div>
+
+<div id="generatePage" class="hidden">
+
+<div class="card">
+
+<div class="title">
+Generate Music
+</div>
+
+<div class="label">
+Judul Lagu
+</div>
+
+<input type="text" id="title">
+
+<div class="label">
+Style Musik
+</div>
+
+<textarea id="style"></textarea>
+
+<div class="label">
+Lirik Lagu
+</div>
+
+<textarea id="lyrics"></textarea>
+
+<div class="label">
+Pilihan Vocal
+</div>
+
+<div class="row">
+
+<button class="gender-btn"
+id="maleBtn"
+onclick="setGender('m')">
+
+Male
+
+</button>
+
+<button class="gender-btn active"
+id="femaleBtn"
+onclick="setGender('f')">
+
+Female
+
+</button>
+
+</div>
+
+<div class="label">
+Model AI
+</div>
+
+<select id="model">
+
+<option value="V5_5">V5.5</option>
+<option value="V5">V5</option>
+<option value="V4_5PLUS">V4.5+</option>
+<option value="V4_5">V4.5</option>
+<option value="V4">V4</option>
+
+</select>
+
+<button class="generate"
+onclick="generateMusic()">
+
+GENERATE MUSIC
+
+</button>
+
+<div class="loading" id="loading"></div>
+
+<div class="result" id="result"></div>
+
+</div>
+
+</div>
+
+<div id="settingsPage" class="hidden">
+
+<div class="card">
+
+<div class="title">
+API Settings
+</div>
+
+<div class="label">
+Masukkan API Keys
+</div>
+
+<textarea
+id="apikeys"
+placeholder="1 API Key per baris"></textarea>
+
+<button class="save-btn"
+onclick="saveApiKeys()">
+
+SAVE API KEYS
+
+</button>
+
+<div id="creditsBox"></div>
+
+</div>
+
+<div class="card">
+
+<div class="title">
+Theme Settings
+</div>
+
+<div class="theme-row">
+
+<button class="theme-btn active"
+id="modernTheme"
+onclick="setTheme('modern')">
+
+Modern
+
+</button>
+
+<button class="theme-btn"
+id="beachTheme"
+onclick="setTheme('beach')">
+
+Beach
+
+</button>
+
+<button class="theme-btn"
+id="galaxyTheme"
+onclick="setTheme('galaxy')">
+
+Galaxy
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="nav">
+
+<div class="nav-item active"
+id="homeNav"
+onclick="showPage('home')">
+
+<div class="icon">🏠</div>
+Home
+
+</div>
+
+<div class="nav-item"
+id="generateNav"
+onclick="showPage('generate')">
+
+<div class="icon">🎵</div>
+Generate
+
+</div>
+
+<div class="nav-item"
+id="settingsNav"
+onclick="showPage('settings')">
+
+<div class="icon">⚙️</div>
+Settings
+
+</div>
+
+</div>
+
+<script>
+
+let vocalGender = 'f';
+
+function setGender(type){
+
+vocalGender = type;
+
+document.getElementById('maleBtn')
+.classList.remove('active');
+
+document.getElementById('femaleBtn')
+.classList.remove('active');
+
+if(type === 'm'){
+
+document.getElementById('maleBtn')
+.classList.add('active');
+
+}else{
+
+document.getElementById('femaleBtn')
+.classList.add('active');
+
+}
+
+}
+
+function showPage(page){
+
+document.getElementById('homePage')
+.classList.add('hidden');
+
+document.getElementById('generatePage')
+.classList.add('hidden');
+
+document.getElementById('settingsPage')
+.classList.add('hidden');
+
+document.getElementById('homeNav')
+.classList.remove('active');
+
+document.getElementById('generateNav')
+.classList.remove('active');
+
+document.getElementById('settingsNav')
+.classList.remove('active');
+
+if(page === 'home'){
+
+document.getElementById('homePage')
+.classList.remove('hidden');
+
+document.getElementById('homeNav')
+.classList.add('active');
+
+}
+
+if(page === 'generate'){
+
+document.getElementById('generatePage')
+.classList.remove('hidden');
+
+document.getElementById('generateNav')
+.classList.add('active');
+
+}
+
+if(page === 'settings'){
+
+document.getElementById('settingsPage')
+.classList.remove('hidden');
+
+document.getElementById('settingsNav')
+.classList.add('active');
+
+}
+
+}
+
+function setLoading(text){
+
+document.getElementById('loading')
+.innerHTML = text;
+
+}
+
+function hideKey(key){
+
+if(key.length < 10) return key;
+
+return key.substring(0,4)
++ '********'
++ key.substring(key.length - 4);
+
+}
+
+async function saveApiKeys(){
+
+const raw =
+document.getElementById('apikeys').value;
+
+const keys = raw
+.split('\n')
+.map(k => k.trim())
+.filter(k => k);
+
+localStorage.setItem(
+'gmusic_keys',
+JSON.stringify(keys)
+);
+
+alert('API Keys Saved');
+
+renderKeys();
+
+}
+
+async function renderKeys(){
+
+const keys = JSON.parse(
+localStorage.getItem('gmusic_keys')
+) || [];
+
+const box =
+document.getElementById('creditsBox');
+
+box.innerHTML = '';
+
+keys.forEach((key,index)=>{
+
+box.innerHTML += `
+
+<div class="credit-box">
+
+<b>API KEY ${index+1}</b>
+
+<div class="key-text"
+id="keyText${index}">
+
+${hideKey(key)}
+
+</div>
+
+<button class="toggle-btn"
+onclick="toggleKey(${index})">
+
+👁 Show / Hide Key
+
+</button>
+
+<button class="credit-btn"
+onclick="checkSingleCredit('${key}',${index})">
+
+💳 Check Credits
+
+</button>
+
+<div class="key-text"
+id="creditResult${index}">
+
+Credits Left : -
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function toggleKey(index){
+
+const keys = JSON.parse(
+localStorage.getItem('gmusic_keys')
+) || [];
+
+const text =
+document.getElementById('keyText'+index);
+
+if(text.dataset.show === '1'){
+
+text.innerHTML = hideKey(keys[index]);
+
+text.dataset.show = '0';
+
+}else{
+
+text.innerHTML = keys[index];
+
+text.dataset.show = '1';
+
+}
+
+}
+
+async function checkSingleCredit(key,index){
+
+const result =
+document.getElementById(
+'creditResult'+index
+);
+
+result.innerHTML = 'Checking...';
+
+try{
+
+const response = await fetch(
+'https://api.sunoapi.org/api/v1/account/balance',
+{
+headers:{
+'Authorization':'Bearer ' + key
+}
+}
+);
+
+const data = await response.json();
+
+console.log(data);
+
+let credits = 0;
+
+if(data.data){
+
+credits =
+data.data.credits ||
+data.data.balance ||
+data.data.totalCredits ||
+0;
+
+}
+
+result.innerHTML =
+'Credits Left : ' + credits;
+
+}catch(err){
+
+console.log(err);
+
+result.innerHTML =
+'Error Checking Credits';
+
+}
+
+}
+
+async function generateMusic(){
+
+const keys = JSON.parse(
+localStorage.getItem('gmusic_keys')
+) || [];
+
+const apiKey = keys[0];
+
+if(!apiKey){
+
+alert('Masukkan API Key');
+
+showPage('settings');
+
+return;
+
+}
+
+const title =
+document.getElementById('title').value;
+
+const style =
+document.getElementById('style').value;
+
+const lyrics =
+document.getElementById('lyrics').value;
+
+const model =
+document.getElementById('model').value;
+
+document.getElementById('result')
+.innerHTML = '';
+
+setLoading('Sending To Suno...');
+
+try{
+
+const response = await fetch(
+'https://api.sunoapi.org/api/v1/generate',
+{
+method:'POST',
+headers:{
+'Content-Type':'application/json',
+'Authorization':'Bearer ' + apiKey
+},
+body:JSON.stringify({
+
+title:title,
+style:style,
+prompt:lyrics,
+customMode:true,
+instrumental:false,
+model:model,
+vocalGender:vocalGender
+
+})
+}
+);
+
+const data = await response.json();
+
+if(data.code !== 200){
+
+setLoading('Generate Failed');
+
+alert(data.msg || 'Error');
+
+return;
+
+}
+
+const taskId =
+data.data.taskId;
+
+setLoading('Suno AI Processing...');
+
+checkMusic(taskId,apiKey);
+
+}catch(err){
+
+console.log(err);
+
+setLoading('Server Error');
+
+}
+
+}
+
+async function checkMusic(taskId,apiKey){
+
+let done = false;
+let retry = 0;
+
+while(!done && retry < 60){
+
+retry++;
+
+await new Promise(r =>
+setTimeout(r,10000)
+);
+
+try{
+
+setLoading('Generating Music...');
+
+const response = await fetch(
+
+'https://api.sunoapi.org/api/v1/generate/record-info?taskId='
++ taskId,
+
+{
+headers:{
+'Authorization':'Bearer ' + apiKey
+}
+}
+
+);
+
+const data = await response.json();
+
+if(
+data.data &&
+data.data.response &&
+data.data.response.sunoData
+){
+
+const songs =
+data.data.response.sunoData;
+
+if(
+songs.length > 0 &&
+songs[0].audioUrl
+){
+
+done = true;
+
+setLoading('Music Complete ✅');
+
+let html = '';
+
+songs.forEach(song => {
+
+html += `
+
+<div class="song-card">
+
+<img src="${song.imageUrl}">
+
+<div class="song-title">
+
+${song.title}
+
+</div>
+
+<audio controls>
+
+<source src="${song.audioUrl}">
+
+</audio>
+
+<a class="download"
+href="${song.audioUrl}"
+target="_blank">
+
+DOWNLOAD MP3
+
+</a>
+
+</div>
+
+`;
+
+});
+
+document.getElementById('result')
+.innerHTML = html;
+
+}
+
+}
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+}
+
+function setTheme(theme){
+
+document.querySelectorAll('.theme-btn')
+.forEach(btn=>{
+btn.classList.remove('active');
+});
+
+if(theme === 'modern'){
+
+document.documentElement.style.setProperty('--bg','#0f172a');
+document.documentElement.style.setProperty('--card','#111827');
+document.documentElement.style.setProperty('--input','#1e293b');
+document.documentElement.style.setProperty('--primary','#3b82f6');
+document.documentElement.style.setProperty('--primary2','#60a5fa');
+
+document.getElementById('modernTheme')
+.classList.add('active');
+
+}
+
+if(theme === 'beach'){
+
+document.documentElement.style.setProperty('--bg','#082f49');
+document.documentElement.style.setProperty('--card','#0c4a6e');
+document.documentElement.style.setProperty('--input','#075985');
+document.documentElement.style.setProperty('--primary','#f59e0b');
+document.documentElement.style.setProperty('--primary2','#38bdf8');
+
+document.getElementById('beachTheme')
+.classList.add('active');
+
+}
+
+if(theme === 'galaxy'){
+
+document.documentElement.style.setProperty('--bg','#1e1b4b');
+document.documentElement.style.setProperty('--card','#312e81');
+document.documentElement.style.setProperty('--input','#4338ca');
+document.documentElement.style.setProperty('--primary','#7c3aed');
+document.documentElement.style.setProperty('--primary2','#c084fc');
+
+document.getElementById('galaxyTheme')
+.classList.add('active');
+
+}
+
+localStorage.setItem('theme_music_ai',theme);
+
+}
+
+const savedTheme =
+localStorage.getItem('theme_music_ai');
+
+if(savedTheme){
+
+setTheme(savedTheme);
+
+}
+
+renderKeys();
+
+</script>
+
+</body>
+  </html>
